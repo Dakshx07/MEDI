@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion';
 import { CircleUser, Stethoscope, Beaker, CheckCircle } from 'lucide-react';
 import { Card } from './ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import { cn } from '@/lib/utils';
 
 const roles = [
@@ -12,7 +12,7 @@ const roles = [
     name: 'Patient',
     title: 'Sarah Johnson',
     icon: CircleUser,
-    avatar: 'https://placehold.co/100x100.png',
+    avatar: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=400',
     dataAiHint: 'woman smiling',
     style: {
       transform: 'rotate(-8deg) translateY(-20px) translateX(-40px)',
@@ -23,7 +23,7 @@ const roles = [
     name: 'Doctor',
     title: 'Dr. Anya Sharma',
     icon: Stethoscope,
-    avatar: 'https://placehold.co/100x100.png',
+    avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=400',
     dataAiHint: 'doctor woman',
     style: {
       transform: 'rotate(-2deg) translateY(10px) translateX(-80px)',
@@ -34,7 +34,7 @@ const roles = [
     name: 'Pharmacist',
     title: 'David Chen',
     icon: Beaker,
-    avatar: 'https://placehold.co/100x100.png',
+    avatar: 'https://images.unsplash.com/photo-1588776814546-1ff6bc1a45b2?q=80&w=400',
     dataAiHint: 'man pharmacist',
     style: {
       transform: 'rotate(2deg) translateY(10px) translateX(80px)',
@@ -45,7 +45,7 @@ const roles = [
     name: 'Verifier',
     title: 'MediChain AI',
     icon: CheckCircle,
-    avatar: 'https://placehold.co/100x100.png',
+    avatar: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=400',
     dataAiHint: 'robot abstract',
     style: {
       transform: 'rotate(8deg) translateY(-20px) translateX(40px)',
@@ -104,7 +104,7 @@ export function HeroCards() {
             style={{ transform: role.style.transform }}
           >
             <Avatar className="h-16 w-16 border-2 border-primary/50">
-              <AvatarImage src={role.avatar} data-ai-hint={role.dataAiHint} />
+              <AvatarImage src={role.avatar} data-ai-hint={role.dataAiHint} className="object-cover" />
               <AvatarFallback>{role.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="text-center">
