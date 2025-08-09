@@ -6,6 +6,7 @@ import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import { AppHeader } from '@/components/app-header';
 import { useEffect, useState } from 'react';
+import { AppFooter } from '@/components/app-footer';
 
 // This is a temporary workaround until we can get metadata to work in this file.
 // export const metadata: Metadata = {
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body className="font-body antialiased bg-background">
         <AppHeader />
         <main>{children}</main>
+        <AppFooter />
         <Toaster />
       </body>
     </html>
