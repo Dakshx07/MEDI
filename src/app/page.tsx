@@ -1,7 +1,9 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ShieldCheck, UploadCloud } from 'lucide-react';
 import Image from 'next/image';
+import { FeaturesScroll } from '@/components/features-scroll';
 
 export default function Home() {
   return (
@@ -35,6 +37,11 @@ export default function Home() {
             </Button>
           </Link>
         </div>
+        
+        <div className="w-full max-w-6xl pt-12 animate-fade-in animation-delay-400">
+            <FeaturesScroll />
+        </div>
+
         <div className="w-full max-w-5xl pt-12 animate-fade-in animation-delay-400">
           <div className="relative rounded-xl border bg-card/50 text-card-foreground shadow-2xl shadow-primary/10">
              <Image src="https://placehold.co/1024x640.png" width={1024} height={640} alt="App Screenshot" data-ai-hint="secure healthcare" className="rounded-xl" />
