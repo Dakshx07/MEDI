@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ShieldPlus } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const menuItems = [
   {
@@ -27,10 +28,25 @@ const menuItems = [
 
 export function AppHeader() {
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
   return (
     <div className="sticky top-0 z-50 w-full p-4">
-      <header className="container flex h-16 items-center justify-between rounded-full bg-background/80 backdrop-blur-sm shadow-lg ring-1 ring-black/5">
+      <header className={cn(
+          "container flex h-16 items-center justify-between rounded-full transition-all duration-300",
+          isScrolled 
+            ? 'bg-background/95 shadow-lg ring-1 ring-black/5' 
+            : 'bg-transparent'
+        )}>
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
             <ShieldPlus className="h-7 w-7 text-primary" />
