@@ -1,21 +1,34 @@
+
+'use client';
+
 import type {Metadata} from 'next';
 import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import { AppHeader } from '@/components/app-header';
+import { useEffect, useState } from 'react';
 
-export const metadata: Metadata = {
-  title: 'MediChain Verify',
-  description: 'Securely verify and manage medical prescriptions.',
-};
+// This is a temporary workaround until we can get metadata to work in this file.
+// export const metadata: Metadata = {
+//   title: 'MediChain Verify',
+//   description: 'Securely verify and manage medical prescriptions.',
+// };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={isMounted ? 'dark' : ''}>
       <head>
+        <title>MediChain Verify</title>
+        <meta name="description" content="Securely verify and manage medical prescriptions." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
