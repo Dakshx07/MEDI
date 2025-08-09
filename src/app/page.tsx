@@ -19,11 +19,7 @@ export default function Home() {
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 md:p-8 space-y-8 animate-fade-in">
         
-        <div className="w-full max-w-6xl pt-12 animate-fade-in animation-delay-400">
-            <HeroCards />
-        </div>
-
-        <div className="text-center space-y-6 max-w-4xl mx-auto -mt-12 md:-mt-24">
+        <div className="text-center space-y-6 max-w-4xl mx-auto pt-24">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             The Future of Prescription Verification is <span className="text-primary">Here</span>
           </h1>
@@ -31,6 +27,7 @@ export default function Home() {
             MediChain brings trust and security to healthcare. Instantly extract, verify, and secure medical prescriptions using our AI-powered platform.
           </p>
         </div>
+
         <div className="flex flex-col sm:flex-row items-center gap-4 animate-fade-in animation-delay-200">
           <Link href="/upload">
             <Button size="lg">
@@ -55,7 +52,14 @@ export default function Home() {
                 From patients to pharmacists, our ecosystem ensures a seamless and secure verification process for everyone involved.
             </p>
           </div>
-          <FeatureGrid />
+          
+          <div className="w-full max-w-6xl -mt-12 md:-mt-16">
+              <HeroCards />
+          </div>
+
+          <div className="mt-12">
+            <FeatureGrid />
+          </div>
         </div>
       </div>
     </div>
