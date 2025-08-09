@@ -29,21 +29,21 @@ export function AppHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 items-center justify-between">
+    <div className="sticky top-0 z-50 w-full p-4">
+      <header className="container flex h-16 items-center justify-between rounded-full bg-background/80 backdrop-blur-sm shadow-lg ring-1 ring-black/5">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
             <ShieldPlus className="h-7 w-7 text-primary" />
-            <span className="text-xl font-bold text-foreground">MediChain Verify</span>
+            <span className="text-lg font-semibold text-foreground">MediChain Verify</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-4">
+          <nav className="hidden md:flex items-center gap-2">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
-                  pathname === item.href ? 'text-primary' : 'text-muted-foreground'
+                  'rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-muted/50',
+                  pathname === item.href ? 'text-primary bg-muted/50' : 'text-muted-foreground'
                 )}
               >
                 {item.label}
@@ -53,13 +53,13 @@ export function AppHeader() {
         </div>
         <div className="flex items-center gap-2">
             <Link href="/auth">
-                <Button variant="ghost">Login</Button>
+                <Button variant="ghost" className="rounded-full">Login</Button>
             </Link>
              <Link href="/auth?form=signup">
-                <Button>Sign Up</Button>
+                <Button className="rounded-full">Sign Up</Button>
             </Link>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }
