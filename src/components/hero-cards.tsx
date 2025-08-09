@@ -66,19 +66,23 @@ export function HeroCards() {
     },
   };
 
-  const itemVariants = (style: any) => ({
-    hidden: { y: 50, opacity: 0, rotate: style.transform.match(/rotate\(([^)]+)\)/)[1] },
-    visible: {
-      y: 0,
-      opacity: 1,
-      rotate: style.transform.match(/rotate\(([^)]+)\)/)[1],
-      transition: {
-        type: 'spring',
-        stiffness: 80,
-        damping: 12,
+  const itemVariants = (style: any) => {
+    const rotateMatch = style.transform.match(/rotate\(([^)]+)\)/);
+    const rotate = rotateMatch ? rotateMatch[1] : '0deg';
+    return {
+      hidden: { y: 50, opacity: 0, rotate: parseFloat(rotate) },
+      visible: {
+        y: 0,
+        opacity: 1,
+        rotate: parseFloat(rotate),
+        transition: {
+          type: 'spring',
+          stiffness: 80,
+          damping: 12,
+        },
       },
-    },
-  });
+    };
+  };
 
   return (
     <motion.div
