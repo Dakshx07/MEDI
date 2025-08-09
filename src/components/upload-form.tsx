@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Image from 'next/image';
-import { UploadCloud, Camera, FileCheck2, Loader2, ClipboardCopy } from 'lucide-react';
+import { UploadCloud, Camera, FileCheck2, Loader2, ClipboardCopy, Wand2, RefreshCw } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -128,15 +128,28 @@ export function UploadForm() {
     switch (status) {
       case 'idle':
         return (
-          <Card className="text-center">
-            <CardHeader>
-              <CardTitle>Upload Prescription</CardTitle>
-              <CardDescription>Choose an image file or use your camera.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col items-center justify-center space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-12">
-                <UploadCloud className="h-12 w-12 text-muted-foreground" />
-                <p className="text-muted-foreground">Drag and drop file or</p>
+          <Card className="text-center bg-background/50 backdrop-blur-sm border-white/10 shadow-lg animate-fade-in">
+             <CardContent className="p-6">
+              <div
+                className="flex flex-col items-center justify-center space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-12 transition-colors hover:border-primary/50 hover:bg-white/5"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const file = e.dataTransfer.files?.[0];
+                  if (file) {
+                     const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setPreviewUrl(reader.result as string);
+                        processFile(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                  }
+                }}
+              >
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <UploadCloud className="h-8 w-8" />
+                </div>
+                <p className="text-muted-foreground">Drag & drop a prescription image, or</p>
                 <div className="flex gap-4">
                   <Button onClick={() => fileInputRef.current?.click()}>
                     <UploadCloud className="mr-2" /> Choose File
@@ -149,6 +162,7 @@ export function UploadForm() {
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
+                  capture="environment"
                   className="hidden"
                   onChange={handleFileChange}
                 />
@@ -158,14 +172,14 @@ export function UploadForm() {
         );
       case 'processing':
         return (
-          <Card>
+          <Card className="bg-background/50 backdrop-blur-sm border-white/10 shadow-lg">
             <CardHeader>
-              <CardTitle>Processing Prescription</CardTitle>
+              <CardTitle className="flex items-center gap-2"><Loader2 className="animate-spin" /> Processing Prescription</CardTitle>
               <CardDescription>Our AI is extracting the details. Please wait.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center space-y-4">
                 {previewUrl && 
-                  <div className="w-full max-w-sm rounded-lg overflow-hidden">
+                  <div className="w-full max-w-sm rounded-lg overflow-hidden border border-white/10">
                     <Image src={previewUrl} alt="Prescription preview" width={400} height={400} className="object-contain" />
                   </div>
                 }
@@ -176,16 +190,16 @@ export function UploadForm() {
         );
       case 'verifying':
         return (
-          <Card>
+          <Card className="bg-background/50 backdrop-blur-sm border-white/10 shadow-lg animate-fade-in">
             <CardHeader>
-              <CardTitle>Verify Extracted Data</CardTitle>
-              <CardDescription>Please review and confirm the extracted information.</CardDescription>
+              <CardTitle className="flex items-center gap-2"><Wand2 /> Verify Extracted Data</CardTitle>
+              <CardDescription>Please review and confirm the extracted information below.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {previewUrl && (
-                  <div className="w-full rounded-lg overflow-hidden border p-2">
-                    <Image src={previewUrl} alt="Prescription preview" width={500} height={500} className="object-contain w-full h-auto" />
+                  <div className="w-full rounded-lg overflow-hidden border p-2 border-white/10">
+                    <Image src={previewUrl} alt="Prescription preview" width={500} height={500} className="object-contain w-full h-auto rounded-md" />
                   </div>
                 )}
                 <Form {...form}>
@@ -233,7 +247,7 @@ export function UploadForm() {
                       </FormItem>
                     )} />
                     <div className="flex justify-end gap-2 pt-4">
-                        <Button type="button" variant="outline" onClick={resetState}>Cancel</Button>
+                        <Button type="button" variant="secondary" onClick={resetState}>Cancel</Button>
                         <Button type="submit">
                           <FileCheck2 className="mr-2"/>
                           Confirm & Generate Hash
@@ -247,21 +261,21 @@ export function UploadForm() {
         );
         case 'completed':
             return (
-              <Card>
+              <Card className="bg-background/50 backdrop-blur-sm border-white/10 shadow-lg animate-fade-in">
                 <CardHeader className="text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent/20 text-accent">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10 text-green-400">
                     <FileCheck2 className="h-8 w-8" />
                   </div>
                   <CardTitle className="mt-4">Verification Complete</CardTitle>
                   <CardDescription>
-                    The prescription has been securely recorded.
+                    The prescription has been securely recorded on-chain.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="hash">Unique Prescription Hash</Label>
                     <div className="flex items-center gap-2">
-                       <Input id="hash" readOnly value={prescriptionHash} className="font-mono"/>
+                       <Input id="hash" readOnly value={prescriptionHash} className="font-mono bg-white/5"/>
                        <Button variant="outline" size="icon" onClick={copyToClipboard}>
                            <ClipboardCopy className="h-4 w-4" />
                        </Button>
@@ -271,6 +285,7 @@ export function UploadForm() {
                 </CardContent>
                 <CardFooter>
                     <Button onClick={resetState} className="w-full">
+                        <RefreshCw className="mr-2" />
                         Verify Another Prescription
                     </Button>
                 </CardFooter>
