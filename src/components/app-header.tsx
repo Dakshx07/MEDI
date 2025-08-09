@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ShieldPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const menuItems = [
@@ -25,6 +24,29 @@ const menuItems = [
     label: 'Doctor Directory',
   },
 ];
+
+const MediChainLogo = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M12 2L12 10" />
+      <path d="M12 14L12 22" />
+      <path d="M17 9A2 2 0 0 0 15 7" />
+      <path d="M7 9A2 2 0 0 1 9 7" />
+      <path d="M17 15A2 2 0 0 1 15 17" />
+      <path d="M7 15A2 2 0 0 0 9 17" />
+      <path d="M9 7h6" />
+      <path d="M9 17h6" />
+      <rect x="7" y="10" width="10" height="4" rx="2" />
+    </svg>
+  );
 
 export function AppHeader() {
   const pathname = usePathname();
@@ -49,7 +71,7 @@ export function AppHeader() {
         )}>
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <ShieldPlus className="h-7 w-7 text-primary" />
+            <MediChainLogo className="h-7 w-7 text-primary" />
             <span className="text-lg font-semibold text-foreground">MediChain Verify</span>
           </Link>
           <nav className="hidden md:flex items-center gap-2">
