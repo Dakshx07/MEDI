@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useTransition, useCallback } from 'react';
+import { useState, useRef, useTransition, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -128,10 +128,10 @@ export function UploadForm() {
     switch (status) {
       case 'idle':
         return (
-          <Card className="text-center bg-background/50 backdrop-blur-sm border-white/10 shadow-lg animate-fade-in">
+          <Card className="text-center shadow-lg animate-fade-in">
              <CardContent className="p-6">
               <div
-                className="flex flex-col items-center justify-center space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-12 transition-colors hover:border-primary/50 hover:bg-white/5"
+                className="flex flex-col items-center justify-center space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-12 transition-colors hover:border-primary/50 hover:bg-accent"
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
                   e.preventDefault();
@@ -172,14 +172,14 @@ export function UploadForm() {
         );
       case 'processing':
         return (
-          <Card className="bg-background/50 backdrop-blur-sm border-white/10 shadow-lg">
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2"><Loader2 className="animate-spin" /> Processing Prescription</CardTitle>
               <CardDescription>Our AI is extracting the details. Please wait.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center space-y-4">
                 {previewUrl && 
-                  <div className="w-full max-w-sm rounded-lg overflow-hidden border border-white/10">
+                  <div className="w-full max-w-sm rounded-lg overflow-hidden border">
                     <Image src={previewUrl} alt="Prescription preview" width={400} height={400} className="object-contain" />
                   </div>
                 }
@@ -190,7 +190,7 @@ export function UploadForm() {
         );
       case 'verifying':
         return (
-          <Card className="bg-background/50 backdrop-blur-sm border-white/10 shadow-lg animate-fade-in">
+          <Card className="shadow-lg animate-fade-in">
             <CardHeader>
               <CardTitle className="flex items-center gap-2"><Wand2 /> Verify Extracted Data</CardTitle>
               <CardDescription>Please review and confirm the extracted information below.</CardDescription>
@@ -198,7 +198,7 @@ export function UploadForm() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {previewUrl && (
-                  <div className="w-full rounded-lg overflow-hidden border p-2 border-white/10">
+                  <div className="w-full rounded-lg overflow-hidden border p-2">
                     <Image src={previewUrl} alt="Prescription preview" width={500} height={500} className="object-contain w-full h-auto rounded-md" />
                   </div>
                 )}
@@ -261,21 +261,21 @@ export function UploadForm() {
         );
         case 'completed':
             return (
-              <Card className="bg-background/50 backdrop-blur-sm border-white/10 shadow-lg animate-fade-in">
+              <Card className="shadow-lg animate-fade-in">
                 <CardHeader className="text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10 text-green-400">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
                     <FileCheck2 className="h-8 w-8" />
                   </div>
                   <CardTitle className="mt-4">Verification Complete</CardTitle>
                   <CardDescription>
-                    The prescription has been securely recorded on-chain.
+                    The prescription has been securely recorded.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="hash">Unique Prescription Hash</Label>
                     <div className="flex items-center gap-2">
-                       <Input id="hash" readOnly value={prescriptionHash} className="font-mono bg-white/5"/>
+                       <Input id="hash" readOnly value={prescriptionHash} className="font-mono"/>
                        <Button variant="outline" size="icon" onClick={copyToClipboard}>
                            <ClipboardCopy className="h-4 w-4" />
                        </Button>

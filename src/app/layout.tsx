@@ -1,8 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
-import {SidebarProvider, SidebarInset} from '@/components/ui/sidebar';
-import {AppSidebar} from '@/components/app-sidebar';
 import {Toaster} from '@/components/ui/toaster';
+import { AppHeader } from '@/components/app-header';
 
 export const metadata: Metadata = {
   title: 'MediChain Verify',
@@ -15,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -29,10 +28,8 @@ export default function RootLayout({
         ></link>
       </head>
       <body className="font-body antialiased">
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>{children}</SidebarInset>
-        </SidebarProvider>
+        <AppHeader />
+        <main>{children}</main>
         <Toaster />
       </body>
     </html>
