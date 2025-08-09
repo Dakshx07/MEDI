@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { UploadCloud, ShieldCheck } from 'lucide-react';
 import { FeaturesScroll } from '@/components/features-scroll';
 import { FeatureGrid } from '@/components/feature-grid';
+import { HeroCards } from '@/components/hero-cards';
 
 export default function Home() {
   return (
@@ -17,7 +18,12 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 md:p-8 space-y-8 animate-fade-in">
-        <div className="text-center space-y-6 max-w-4xl mx-auto pt-16">
+        
+        <div className="w-full max-w-6xl pt-12 animate-fade-in animation-delay-400">
+            <HeroCards />
+        </div>
+
+        <div className="text-center space-y-6 max-w-4xl mx-auto -mt-12 md:-mt-24">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             The Future of Prescription Verification is <span className="text-primary">Here</span>
           </h1>
@@ -43,6 +49,12 @@ export default function Home() {
         </div>
 
         <div className="w-full max-w-5xl py-12 animate-fade-in animation-delay-400">
+          <div className="text-center space-y-4 mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">One Platform, All-in-One Solution</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                From patients to pharmacists, our ecosystem ensures a seamless and secure verification process for everyone involved.
+            </p>
+          </div>
           <FeatureGrid />
         </div>
       </div>
