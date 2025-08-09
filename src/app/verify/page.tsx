@@ -29,7 +29,7 @@ export default function VerifyPage() {
     defaultValues: { hash: '' },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     const prescription = getPrescription(values.hash);
     setFoundPrescription(prescription || null);
     if (!prescription) {
