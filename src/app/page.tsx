@@ -1,9 +1,9 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ShieldCheck, UploadCloud } from 'lucide-react';
-import Image from 'next/image';
+import { UploadCloud, ShieldCheck } from 'lucide-react';
 import { FeaturesScroll } from '@/components/features-scroll';
+import { FeatureGrid } from '@/components/feature-grid';
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 md:p-8 space-y-8 animate-fade-in">
-        <div className="text-center space-y-6 max-w-4xl mx-auto">
+        <div className="text-center space-y-6 max-w-4xl mx-auto pt-16">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             The Future of Prescription Verification is <span className="text-primary">Here</span>
           </h1>
@@ -42,11 +42,8 @@ export default function Home() {
             <FeaturesScroll />
         </div>
 
-        <div className="w-full max-w-5xl pt-12 animate-fade-in animation-delay-400">
-          <div className="relative rounded-xl border bg-card/50 text-card-foreground shadow-2xl shadow-primary/10">
-             <Image src="https://placehold.co/1024x640.png" width={1024} height={640} alt="App Screenshot" data-ai-hint="secure healthcare" className="rounded-xl" />
-             <div className="absolute inset-0 bg-black/5 rounded-xl"></div>
-          </div>
+        <div className="w-full max-w-5xl py-12 animate-fade-in animation-delay-400">
+          <FeatureGrid />
         </div>
       </div>
     </div>
